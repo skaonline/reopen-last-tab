@@ -1,6 +1,14 @@
 🌍 Read in: [English](#-reopen-last-tab) | [Italiano](#-riapri-ultima-scheda)
 
 ---
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Manifest V3](https://img.shields.io/badge/Manifest-V3-4285F4?logo=googlechrome&logoColor=white)](https://developer.chrome.com/docs/extensions/mv3/)
+[![GitHub stars](https://img.shields.io/github/stars/skaonline/reopen-last-tab?style=social)](https://github.com/skaonline/reopen-last-tab/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/skaonline/reopen-last-tab?style=social)](https://github.com/skaonline/reopen-last-tab/network/members)
+[![GitHub release](https://img.shields.io/github/v/release/skaonline/reopen-last-tab)](https://github.com/skaonline/reopen-last-tab/releases)
+
+---
 <img width="337" height="355" alt="screenshot_reopen-last-tab" src="https://github.com/user-attachments/assets/8d238f74-effc-47f3-bd84-76818ac25d62" />
 
 ---

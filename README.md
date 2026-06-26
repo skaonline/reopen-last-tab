@@ -1,6 +1,9 @@
 🌍 Read in: [English](#-reopen-last-tab) | [Italiano](#-riapri-ultima-scheda)
 
 ---
+<img width="337" height="355" alt="screenshot_reopen-last-tab" src="https://github.com/user-attachments/assets/8d238f74-effc-47f3-bd84-76818ac25d62" />
+
+---
 
 # 🔄 Reopen Last Tab
 

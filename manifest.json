@@ -1,0 +1,34 @@
+{
+  "manifest_version": 3,
+  "name": "Riapri Ultima Scheda",
+  "version": "3.0",
+  "description": "Riapre le ultime schede chiuse. Sessioni normale e incognito separate. Cronologia dimenticata alla chiusura del browser.",
+  "permissions": ["tabs", "storage", "contextMenus", "windows"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16":  "icons/icon16.png",
+    "32":  "icons/icon32.png",
+    "48":  "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Riapri l'ultima scheda chiusa (Alt+Shift+Z)",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16":  "icons/icon16.png",
+      "32":  "icons/icon32.png",
+      "48":  "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "options_page": "options.html",
+  "commands": {
+    "reopen-last-tab": {
+      "suggested_key": { "default": "Alt+Shift+Z" },
+      "description": "Riapri l'ultima scheda chiusa"
+    }
+  },
+  "incognito": "spanning"
+}

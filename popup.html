@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Schede Chiuse</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    width: 340px;
+    background: #ffffff;
+    color: #1e293b;
+  }
+  body.incognito { background: #18181f; color: #e2e8f0; }
+
+  /* ── HEADER ── */
+  header {
+    background: #ffffff;
+    padding: 12px 14px 11px;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .incognito header { background: #18181f; border-color: #2d2d3f; }
+
+  .hd-left { display: flex; align-items: center; gap: 8px; }
+
+  .hd-icon {
+    width: 26px; height: 26px; border-radius: 7px; background: #eef2ff;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .incognito .hd-icon { background: #27273a; }
+  .hd-icon svg { width: 14px; height: 14px; }
+
+  .hd-title { font-size: 13px; font-weight: 600; color: #1e293b; }
+  .incognito .hd-title { color: #e2e8f0; }
+
+  .hd-count {
+    font-size: 11px; font-weight: 600;
+    background: #eef2ff; color: #4f46e5;
+    border-radius: 20px; padding: 1px 9px;
+  }
+  .incognito .hd-count { background: #27273a; color: #818cf8; border-radius: 4px; }
+
+  .hd-right { display: flex; align-items: center; gap: 5px; }
+
+  /* Pulsante ingranaggio */
+  #settings-btn {
+    width: 28px; height: 28px;
+    background: none; border: 1px solid #e2e8f0; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; color: #94a3b8; flex-shrink: 0;
+    transition: background 0.1s, color 0.1s;
+  }
+  #settings-btn:hover { background: #f1f5f9; color: #475569; }
+  #settings-btn svg { width: 14px; height: 14px; }
+  .incognito #settings-btn { border-color: #2d2d3f; color: #4b5563; }
+  .incognito #settings-btn:hover { background: #27273a; color: #94a3b8; }
+
+  #clear-btn {
+    background: #ffffff; border: 1px solid #cbd5e1; border-radius: 7px;
+    padding: 4px 9px; font-size: 11px; font-weight: 500; color: #475569; cursor: pointer;
+  }
+  #clear-btn:hover { background: #f8fafc; }
+  .incognito #clear-btn { background: transparent; border-color: #3d3d52; color: #94a3b8; }
+  .incognito #clear-btn:hover { background: #27273a; }
+
+  #reopen-last-btn {
+    background: #4f46e5; color: #ffffff; border: none;
+    border-radius: 7px; padding: 4px 11px;
+    font-size: 11px; font-weight: 500; cursor: pointer;
+  }
+  #reopen-last-btn:hover { background: #4338ca; }
+  #reopen-last-btn:disabled { background: #c7d2fe; cursor: default; }
+  .incognito #reopen-last-btn { background: #27273a; color: #a5b4fc; border: 1px solid #4338ca; }
+  .incognito #reopen-last-btn:hover { background: #31314a; }
+  .incognito #reopen-last-btn:disabled { background: #1e1e2a; color: #4b5563; border-color: #2d2d3f; cursor: default; }
+
+  /* ── SEARCH ── */
+  .search-bar {
+    background: #ffffff;
+    padding: 7px 12px; border-bottom: 1px solid #f1f5f9;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .incognito .search-bar { background: #18181f; border-color: #23232f; }
+  .search-bar svg { width: 13px; height: 13px; color: #94a3b8; flex-shrink: 0; }
+  .incognito .search-bar svg { color: #4b5563; }
+
+  #search-input {
+    border: none; outline: none; background: transparent;
+    font-size: 12px; font-family: inherit; color: #1e293b; flex: 1;
+  }
+  #search-input::placeholder { color: #94a3b8; }
+  .incognito #search-input { color: #cbd5e1; }
+  .incognito #search-input::placeholder { color: #4b5563; }
+
+  /* ── TAB LIST ── */
+  .tab-list { max-height: 370px; overflow-y: auto; }
+
+  .tab-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 14px; cursor: pointer; transition: background 0.1s;
+  }
+  .tab-item:nth-child(odd)  { background: #ffffff; }
+  .tab-item:nth-child(even) { background: #f8fafc; }
+  .tab-item:hover           { background: #eef2ff !important; }
+  .incognito .tab-item:nth-child(odd)  { background: #18181f; }
+  .incognito .tab-item:nth-child(even) { background: #1d1d2a; }
+  .incognito .tab-item:hover           { background: #23233a !important; }
+  .tab-item:hover .tab-restore { opacity: 1; }
+
+  .tab-favicon {
+    width: 20px; height: 20px; flex-shrink: 0;
+    border-radius: 5px; border: 1px solid #e2e8f0; background: #f8fafc;
+  }
+  .incognito .tab-favicon { border-color: #2d2d3f; background: #27273a; }
+  .tab-favicon-fallback {
+    width: 20px; height: 20px; flex-shrink: 0;
+    border-radius: 5px; border: 1px solid #e2e8f0; background: #f8fafc;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; color: #94a3b8;
+  }
+  .incognito .tab-favicon-fallback { border-color: #2d2d3f; background: #27273a; color: #4b5563; }
+
+  .tab-info { flex: 1; min-width: 0; }
+  .tab-title { font-size: 12px; font-weight: 500; color: #1e293b; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .incognito .tab-title { color: #cbd5e1; }
+  .tab-host { font-size: 10px; color: #94a3b8; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .incognito .tab-host { color: #4b5563; }
+
+  .tab-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
+  .tab-time { font-size: 10px; color: #cbd5e1; }
+  .incognito .tab-time { color: #374151; }
+  .tab-restore { font-size: 10px; font-weight: 500; color: #4f46e5; opacity: 0; transition: opacity 0.1s; white-space: nowrap; }
+  .incognito .tab-restore { color: #818cf8; }
+
+  /* ── EMPTY ── */
+  .empty-state { padding: 36px 16px; text-align: center; color: #94a3b8; font-size: 13px; }
+  .empty-state svg { display: block; margin: 0 auto 10px; opacity: 0.35; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #ffffff;
+    padding: 8px 14px; border-top: 1px solid #f1f5f9;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .incognito footer { background: #18181f; border-color: #23232f; }
+  .footer-text { font-size: 10px; color: #94a3b8; }
+  .incognito .footer-text { color: #4b5563; }
+  .kbd {
+    font-size: 9px; font-weight: 500; color: #64748b;
+    background: #f1f5f9; border: 1px solid #e2e8f0;
+    border-radius: 4px; padding: 1px 5px; font-family: monospace;
+  }
+  .incognito .kbd { color: #6b7280; background: #23232f; border-color: #2d2d3f; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd-left">
+    <div class="hd-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#4f46e5" stroke-width="2.2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+        <polyline points="3 3 3 8 8 8"/>
+      </svg>
+    </div>
+    <span class="hd-title">Schede chiuse</span>
+    <span class="hd-count" id="tab-count">0</span>
+  </div>
+  <div class="hd-right">
+    <button id="settings-btn" title="Impostazioni">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="3"/>
+        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+      </svg>
+    </button>
+    <button id="clear-btn">Cancella</button>
+    <button id="reopen-last-btn" disabled>↩ Riapri ultima</button>
+  </div>
+</header>
+
+<div class="search-bar">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+    <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+  </svg>
+  <input id="search-input" type="text" placeholder="Cerca…">
+</div>
+
+<div id="tab-list" class="tab-list"></div>
+
+<footer>
+  <span class="footer-text" id="footer-text">…</span>
+  <span class="kbd">Alt+Shift+Z</span>
+</footer>
+
+<script src="i18n.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
